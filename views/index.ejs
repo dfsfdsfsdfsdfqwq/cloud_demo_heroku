@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <p><%= title %></p>
+    <label>Input number: </label>
+    <input type="number" id="number"><br><br>
+    <button onclick="day()">Submit</button><br><br>
+    <p id="demo"></p>
+    <script>
+      function day(){
+        const day =  
+        ['Saturday',
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday']
+      ;
+        document.getElementById("demo").innerHTML = "The day is "+ day[document.getElementById("number").value % 7]+ " in weeks";
+      }
+    </script>
+  </body>
+</html>
+

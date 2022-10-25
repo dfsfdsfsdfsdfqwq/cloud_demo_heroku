@@ -11,9 +11,9 @@ router.post('/', async function (req, res, next) {
   let session= req.session;
   let [tempo,shop_id,role] = await authen(req.body.username, req.body.password);
   session.user_id = req.body.username;
-  session.shop_id= shop_id;
   session.role= role;
   if (tempo == true && role=='shop') {
+    session.shop_id= shop_id;
     // let tempo2 = await shop(req.body.username, req.body.password);
     // let display_table2= await display_table(shop_id);
     // let table = await table_string(shopid);
@@ -24,7 +24,8 @@ router.post('/', async function (req, res, next) {
     // });
     res.redirect('/users');
   }
-  else if (tempo == true && role=='director') {
+  else if (tempo == true && role=='direstor') {
+    session.shop_id= 0;
     // let tempo2 = await shop(req.body.username, req.body.password);
     // let tempo3= await product(tempo2.id);
     // let table = await table_string(tempo2.id);

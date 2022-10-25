@@ -49,7 +49,7 @@ async function display_table(shop_id) {
             let field_name = data.fields[j].name;
             
             table_string += `
-            <td><input name=${field_name} value="${cell}"></td>`;
+            <td><input name=${field_name} value="${cell} "></td>`;
         }
         table_string += `
                         <td style="display:flex">

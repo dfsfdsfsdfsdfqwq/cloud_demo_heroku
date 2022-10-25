@@ -9,13 +9,16 @@ var session;
 
 router.get('/', async function(req, res, next) {
   let session=req.session;
-  if (session.user_id){
+  if (session.user_id && session.role == 'shop'){
     let table_string = await display_table(session.shop_id);
     res.render('users', {
       title: 'User Page', 
       name: session.user_id,
       table: table_string
     });
+  }
+  else if (session.user_id && session.role == 'direstor'){
+    res.redirect('/direstor');
   }
   else {
     res.redirect('/login');
@@ -43,8 +46,9 @@ res.redirect('/users');
 });
 
 router.get('/logout', function(req,res,next){
-  req.session.destroy();
-  res.redirect('/');
+    req.session.destroy();
+    res.redirect('/');
+  
 });
 
 

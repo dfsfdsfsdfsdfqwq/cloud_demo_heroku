@@ -1,16 +1,23 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var session = require('express-session')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var adminRouter = require('./routes/admin');
-
-
+var loginRouter = require('./routes/login');
+var direstorRouter = require('./routes/direstor');
 
 var app = express();
+// session settup
+app.use(session({
+  secret: 'long_string_for_secret',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,7 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/admin', adminRouter);
+app.use('/login', loginRouter);
+app.use('/direstor', direstorRouter);
+
 
 
 // catch 404 and forward to error handler

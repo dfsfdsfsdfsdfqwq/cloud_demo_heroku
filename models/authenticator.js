@@ -16,6 +16,7 @@ if(query_data.rowCount==1)
     authenticated = true
     role=query_data.rows[0].role
     shopid=query_data.rows[0].shop_id
+    if (role=='direstor') shopid=0;
 }
 return [authenticated,shopid,role];
 }

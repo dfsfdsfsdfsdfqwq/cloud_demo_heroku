@@ -24,12 +24,12 @@ router.post('/', async function (req, res, next) {
     // });
     res.redirect('/users');
   }
-  else if (tempo == true && role=='direstor') {
+  else if (tempo == true && role=='director') {
     session.shop_id= 0;
     // let tempo2 = await shop(req.body.username, req.body.password);
     // let tempo3= await product(tempo2.id);
     // let table = await table_string(tempo2.id);
-    res.redirect('/direstor');
+    res.redirect('/director');
     // let select_box_string= await select_box(0);
     // let table_string2= await table_string(0);
     // res.render('admin', {

@@ -17,8 +17,8 @@ router.get('/', async function(req, res, next) {
       table: table_string
     });
   }
-  else if (session.user_id && session.role == 'direstor'){
-    res.redirect('/direstor');
+  else if (session.user_id && session.role == 'director'){
+    res.redirect('/director');
   }
   else {
     res.redirect('/login');
@@ -32,7 +32,7 @@ router.post('/delete:id', async function(req, res, next){
 });
 
 
-router.post('/insert', async function(req, res, next){
+router.post('/insert:id', async function(req, res, next){
 let id = req.body.id;
 insert_btn(id, req.body.name, req.body.price, req.body.quantity, req.body.shop_id);
 res.redirect('/users');

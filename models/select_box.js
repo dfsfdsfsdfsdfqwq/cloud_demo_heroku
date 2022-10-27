@@ -9,7 +9,7 @@ async function select_box(id) {
 
     var str = ``
     str += `
-    <form action="/direstor/selectshop" method="post">
+    <form action="/director/selectshop${id}" method="post">
     <label for="shop">Choose a shop:</label>
     <select name="shop_name" id="shopabc">`
     str+=`<option value=0 >All Shop</option>`

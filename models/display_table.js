@@ -1,8 +1,10 @@
 var pg_conn = require("./pg_config");
 async function display_table(shop_id) {
+    var table_string=``;
     if(shop_id == 0)
     {
         var product_query = 'SELECT * FROM products ORDER BY id';
+        
     }
     else 
     {
@@ -11,22 +13,26 @@ async function display_table(shop_id) {
             text: 'SELECT * FROM products  WHERE shop_id = $1 ORDER BY id',
             values: [shop_id]
         }; 
-    }
-
-    var shop_query = {
+        var shop_query = {
             text: 'SELECT * FROM shops WHERE shop_id = $1',
             values:[shop_id]
         }
-    var product= await pg_conn.query('SELECT * FROM products');
-    var data = await pg_conn.query(product_query);
-    var shop = await pg_conn.query(shop_query);
-
-    var table_string = `
-        <h2> All products for shop ${shop.rows[0].name}</h2>
-        <h2> Address of shop ${shop.rows[0].address}</h2>
-        <h2> Contact ${shop.rows[0].contact}</h2>
-        <table border="1">
+        
+        var shop = await pg_conn.query(shop_query);
+        table_string = `
+            <h2> All products for shop ${shop.rows[0].name}</h2>
+            <h2> Address of shop ${shop.rows[0].address}</h2>
+            <h2> Contact ${shop.rows[0].contact}</h2>
+            `;
+    
+    }
+    var product= await pg_conn.query('SELECT products.id\
+                        FROM products\
+                        ORDER by id DESC\
+                        LIMIT 1;');
+    table_string = `<table border="1">
         <tr>`;
+    var data = await pg_conn.query(product_query);
     let num_fields = data.fields.length;
     let num_rows = data.rowCount;
     const list_fields = [];
@@ -64,13 +70,13 @@ async function display_table(shop_id) {
     }
 
     // Add an empty row and Insert btn
-    table_string += `<form action="users/insert" method="post">
+    table_string += `<form action="users/insert${product.rows[0].id+1}" method="post">
                      <tr>`
     for (let j =0; j<num_fields; j++) 
     {
         let field_name = data.fields[j].name;
         if (j==0){
-            table_string += `<td><input name=${field_name} id=${field_name} value="${product.rowCount+1}" readonly></td>`;
+            table_string += `<td><input name=${field_name} id=${field_name} value="${product.rows[0].id+1}" readonly></td>`;
         }
         else 
             table_string += `<td><input name=${field_name} id=${field_name}></td>`;
@@ -83,6 +89,8 @@ async function display_table(shop_id) {
                 </form>     
                 </table>`;
     return table_string;
+    
+    
     
 }
 module.exports = display_table;

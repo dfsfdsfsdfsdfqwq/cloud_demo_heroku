@@ -39,6 +39,6 @@ router.post('/', async function (req, res, next) {
     //   table: table_string2
     // });
   }
-  else res.render('index', { title: 'Index page', });
+  else res.redirect('/');
 })
 module.exports = router;

@@ -27,7 +27,7 @@ router.get('/', async function(req, res, next) {
   }
 });
 
-router.post('/selectshop:id', async function(req, res, next) {
+router.post('/selectshop', async function(req, res, next) {
 
     let select_box_string= await select_box(req.body.shop_name);
     let table_string2= await table_string(req.body.shop_name);

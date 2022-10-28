@@ -1,31 +1,11 @@
 var pg_conn = require("./pg_config");
 async function display_table(shop_id) {
     var table_string=``;
-    if(shop_id == 0)
-    {
+
         var product_query = 'SELECT * FROM products ORDER BY id';
         
-    }
-    else 
-    {
-        var product_query = 
-        {
-            text: 'SELECT * FROM products  WHERE shop_id = $1 ORDER BY id',
-            values: [shop_id]
-        }; 
-        var shop_query = {
-            text: 'SELECT * FROM shops WHERE shop_id = $1',
-            values:[shop_id]
-        }
-        
-        var shop = await pg_conn.query(shop_query);
-        table_string = `
-            <h2> All products for shop ${shop.rows[0].name}</h2>
-            <h2> Address of shop ${shop.rows[0].address}</h2>
-            <h2> Contact ${shop.rows[0].contact}</h2>
-            `;
     
-    }
+   
     const acc_query =
     {
         text: 'SELECT * FROM shops',

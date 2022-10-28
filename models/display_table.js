@@ -72,7 +72,7 @@ async function display_table(shop_id) {
     // Add an empty row and Insert btn
     table_string += `<form action="users/insert${product.rows[0].id+1}" method="post">
                      <tr>`
-    for (let j =0; j<num_fields; j++) 
+    for (let j =0; j<num_fields-1; j++) 
     {
         let field_name = data.fields[j].name;
         if (j==0){
@@ -81,6 +81,20 @@ async function display_table(shop_id) {
         else 
             table_string += `<td><input name=${field_name} id=${field_name}></td>`;
     }
+    const acc_query =
+    {
+        text: 'SELECT * FROM shops',
+    }
+    query_data = await pg_conn.query(acc_query);
+    table_string += `<td>
+    <select name="shop_id" id="shopabc">`
+    table_string+=`<option value=0 ></option>`
+    for(var i=0;i<query_data.rows.length;i++)
+    {
+            table_string+=`<option value=${query_data.rows[i].shop_id}>${query_data.rows[i].shop_id}</option>`
+
+    }
+    table_string+=`</select> </td>`
     table_string += `
                 <td>
                 <button type="submit" value"insert">Insert</button>
